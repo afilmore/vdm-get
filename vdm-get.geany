@@ -17,10 +17,12 @@ long_line_behaviour=2
 long_line_column=120
 
 [files]
-current_page=1
+current_page=3
 FILE_NAME_0=398;Make;0;16;1;1;0;%2Fhome%2Fhotnuma%2FBureau%2F.Projets%2Fdefi%2Fsrc%2FMakefile.am;0;4
 FILE_NAME_1=444;Vala;0;16;0;1;0;%2Fhome%2Fhotnuma%2FBureau%2F.Projets%2Fdefi%2Fsrc%2FApplication.vala;0;4
-FILE_NAME_2=146;Sh;0;16;0;1;0;%2Fhome%2Fhotnuma%2FBureau%2F.Projets%2Fdefi%2Fconfigure.ac;0;4
+FILE_NAME_2=211;Sh;0;16;0;1;0;%2Fhome%2Fhotnuma%2FBureau%2F.Projets%2Fdefi%2Fconfigure.ac;0;4
+FILE_NAME_3=344;Markdown;0;16;0;1;0;%2Fhome%2Fhotnuma%2FBureau%2F.Projets%2Fdefi%2FREADME.md;0;4
+FILE_NAME_4=84;None;0;16;0;1;0;%2Fhome%2Fhotnuma%2Fvdm.txt;0;4
 
 [VTE]
 last_dir=/home/hotnuma/Bureau/.Projets/defi

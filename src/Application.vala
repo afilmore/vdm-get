@@ -27,8 +27,32 @@ private static int main (string [] args) {
     } catch (Error error) {
     }
     
+    string buffer = "";
+    File file = File.new_for_path (HTML_OUTPUT);
+    try {
+        
+        if (file.query_exists () == true){
+            
+            DataInputStream input_stream = new DataInputStream (file.read ());
+            
+            // Read lines until end of file (null) is reached...
+            string line;
+            while ((line = input_stream.read_line (null)) != null) {
+                
+                buffer += line;
+            }
+        }
+        
+    } catch (Error error) {
+        
+        print ("Error: %s\n", error.message);
+        return 1;
+    }
     
-    var doc = Html.Doc.parse_file (HTML_OUTPUT, "utf-8");
+    //~ var doc = Html.Doc.parse_file (HTML_OUTPUT, "utf-8");
+    var doc = Html.Doc.read_doc (buffer, "", "utf-8", Xml.ParserOption.RECOVER
+                                                      | Xml.ParserOption.NOERROR
+                                                      | Xml.ParserOption.NOWARNING);
     
     if (doc == null)
         return 1;
@@ -50,6 +74,7 @@ private static int main (string [] args) {
     
     string content = get_article_div_text (article_node);
     write_content (content);
+    print ("%s\n", content);
     
     delete doc;
     
