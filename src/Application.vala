@@ -18,6 +18,7 @@
 private static int main (string [] args) {
     
     const string HTML_OUTPUT = "/tmp/vdm.html";
+    string TXT_OUTPUT = Environment.get_home_dir () + "/vdm.txt";
     
     string cmd = "wget -q -O %s \"%s\"".printf (HTML_OUTPUT, "http://www.viedemerde.fr/aleatoire");
     try {
@@ -27,7 +28,8 @@ private static int main (string [] args) {
     } catch (Error error) {
     }
     
-    var doc = Html.Doc.read_file (HTML_OUTPUT, "utf-8", Xml.ParserOption.RECOVER
+    string encoding = "";
+    var doc = Html.Doc.read_file (HTML_OUTPUT, encoding, Xml.ParserOption.RECOVER
                                                       | Xml.ParserOption.NOERROR
                                                       | Xml.ParserOption.NOWARNING);
                                                       
@@ -50,8 +52,15 @@ private static int main (string [] args) {
     }
     
     string content = get_article_div_text (article_node);
-    write_content (content);
-    print ("%s\n", content);
+    write_content (TXT_OUTPUT, content);
+    
+    cmd = "cat %s".printf (TXT_OUTPUT);
+    try {
+        
+        Process.spawn_command_line_sync (cmd);
+    
+    } catch (Error error) {
+    }
     
     delete doc;
     
@@ -145,13 +154,13 @@ private string get_article_div_text (Xml.Node *article_div) {
     return ret;
 }
 
-private void write_content (string content) {
+private void write_content (string output_file, string content) {
     
     DataOutputStream output_stream = null;
     
     try {
         
-        File file = File.new_for_path (Environment.get_home_dir () + "/vdm.txt");
+        File file = File.new_for_path (output_file);
         
         // Delete the file if there's already one...
         if (file.query_exists ()) {
@@ -160,6 +169,7 @@ private void write_content (string content) {
         }
         
         output_stream = new DataOutputStream (
+            
             file.create (FileCreateFlags.REPLACE_DESTINATION)
         );
             
@@ -170,7 +180,7 @@ private void write_content (string content) {
     
     try {
         
-        output_stream.put_string (content);
+        output_stream.put_string (content + "\n");
         
     } catch (IOError error) {
         
