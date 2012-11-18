@@ -1,6 +1,6 @@
 #***************************************************************************************************
 #   
-#   sudo apt-get install libglib2.0-dev 
+#   sudo apt-get install libglib2.0-dev libxml2-dev
 #   ./autogen.sh && ./configure --prefix=/usr && make
 #   ./src/vdm-get
 #
